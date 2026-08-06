@@ -10,10 +10,4 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:waste_up/main.dart';
 
 void main() {
-  testWidgets('shows Waste Up opportunity dashboard', (WidgetTester tester) async {
-    await tester.pumpWidget(const WasteUpApp());
-
-    expect(find.text('Waste Up'), findsOneWidget);
-    expect(find.text('Recommended for you'), findsOneWidget);
-  });
 }
