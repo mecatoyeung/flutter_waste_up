@@ -31,7 +31,7 @@ jobs:
         working-directory: frontend
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -71,7 +71,7 @@ jobs:
         working-directory: frontend
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -94,7 +94,7 @@ jobs:
 
       - name: Publish Android artifacts
         if: matrix.target == 'android'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: waste-up-android
           if-no-files-found: error
@@ -112,7 +112,7 @@ jobs:
 
       - name: Publish web artifact
         if: matrix.target == 'web'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: waste-up-web
           if-no-files-found: error
@@ -128,7 +128,7 @@ jobs:
 
       - name: Publish Linux artifact
         if: matrix.target == 'linux'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: waste-up-linux
           if-no-files-found: error
@@ -145,7 +145,7 @@ jobs:
 
       - name: Publish Windows artifact
         if: matrix.target == 'windows'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: waste-up-windows
           if-no-files-found: error
@@ -161,7 +161,7 @@ jobs:
 
       - name: Publish macOS artifact
         if: matrix.target == 'macos'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: waste-up-macos
           if-no-files-found: error
@@ -176,7 +176,7 @@ jobs:
       contents: write
     steps:
       - name: Download release files
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           path: release
           merge-multiple: true
