@@ -1,17 +1,20 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:waste_up/main.dart';
 
 void main() {
-	testWidgets('dummy test', (tester) async {
+	testWidgets('uses Traditional Chinese by default', (tester) async {
 		await tester.pumpWidget(const WasteUpApp());
 
-		expect(true, true);
+		expect(find.text('找一份\n適合您的工作。'), findsOneWidget);
+	});
+
+	testWidgets('supports Simplified Chinese and English', (tester) async {
+		await tester.pumpWidget(const WasteUpApp(locale: Locale('zh', 'CN')));
+		expect(find.text('寻找一份\n适合您的工作。'), findsOneWidget);
+
+		await tester.pumpWidget(const WasteUpApp(locale: Locale('en')));
+
+		expect(find.text('Find work that\nworks for you.'), findsOneWidget);
 	});
 }
