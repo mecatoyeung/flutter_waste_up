@@ -108,7 +108,7 @@ jobs:
 
       - name: Configure GitHub Pages
         id: pages
-        if: matrix.target == 'web' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: matrix.target == 'web' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch')
         uses: actions/configure-pages@v5
 
       - name: Build web bundle
@@ -116,7 +116,7 @@ jobs:
         run: flutter build web --release --base-href "${{ steps.pages.outputs.base_path || '/' }}"
 
       - name: Upload GitHub Pages artifact
-        if: matrix.target == 'web' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: matrix.target == 'web' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch')
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/build/web
@@ -210,7 +210,7 @@ jobs:
   deploy-pages:
     name: Deploy web app to GitHub Pages
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
