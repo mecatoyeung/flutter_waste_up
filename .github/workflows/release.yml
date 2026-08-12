@@ -17,6 +17,8 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: waste-up-${{ github.workflow }}-${{ github.ref }}
@@ -104,9 +106,20 @@ jobs:
             frontend/build/app/outputs/flutter-apk/app-release.apk
             frontend/build/app/outputs/bundle/release/app-release.aab
 
+      - name: Configure GitHub Pages
+        id: pages
+        if: matrix.target == 'web' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+
       - name: Build web bundle
         if: matrix.target == 'web'
-        run: flutter build web --release
+        run: flutter build web --release --base-href "${{ steps.pages.outputs.base_path || '/' }}"
+
+      - name: Upload GitHub Pages artifact
+        if: matrix.target == 'web' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/build/web
 
       - name: Package web bundle
         if: matrix.target == 'web'
@@ -193,3 +206,19 @@ jobs:
           else
             gh release create "$TAG" release/* --generate-notes --repo "$GITHUB_REPOSITORY"
           fi
+
+  deploy-pages:
+    name: Deploy web app to GitHub Pages
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
