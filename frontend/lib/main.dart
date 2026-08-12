@@ -9,15 +9,36 @@ const page = Color(0xFFF7F7F2);
 
 void main() => runApp(const WasteUpApp());
 
-class WasteUpApp extends StatelessWidget {
+class WasteUpApp extends StatefulWidget {
   const WasteUpApp({super.key, this.locale});
 
   final Locale? locale;
 
   @override
+  State<WasteUpApp> createState() => _WasteUpAppState();
+}
+
+class _WasteUpAppState extends State<WasteUpApp> {
+  late Locale selectedLocale;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedLocale = widget.locale ?? const Locale('zh', 'TW');
+  }
+
+  @override
+  void didUpdateWidget(covariant WasteUpApp oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.locale != oldWidget.locale && widget.locale != null) {
+      selectedLocale = widget.locale!;
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: locale ?? const Locale('zh', 'TW'),
+      locale: selectedLocale,
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -73,14 +94,23 @@ class WasteUpApp extends StatelessWidget {
             borderSide: BorderSide(color: ink, width: 1.5),
           ),
         ),
+        popupMenuTheme: const PopupMenuThemeData(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        ),
       ),
-      home: const HomeScreen(),
+      home: HomeScreen(
+        locale: selectedLocale,
+        onLocaleChanged: (locale) => setState(() => selectedLocale = locale),
+      ),
     );
   }
 }
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.locale, required this.onLocaleChanged});
+
+  final Locale locale;
+  final ValueChanged<Locale> onLocaleChanged;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -123,6 +153,17 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(l10n.appTitle, style: const TextStyle(fontWeight: FontWeight.w800)),
         ]),
         actions: [
+          PopupMenuButton<Locale>(
+            tooltip: 'Language',
+            icon: const Icon(Icons.language),
+            initialValue: widget.locale,
+            onSelected: widget.onLocaleChanged,
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: Locale('zh', 'TW'), child: Text('繁體中文')),
+              PopupMenuItem(value: Locale('zh', 'CN'), child: Text('简体中文')),
+              PopupMenuItem(value: Locale('en'), child: Text('English')),
+            ],
+          ),
           IconButton(
             tooltip: l10n.notifications,
             onPressed: () => message(l10n.allCaughtUp),

@@ -17,4 +17,15 @@ void main() {
 
 		expect(find.text('Find work that\nworks for you.'), findsOneWidget);
 	});
+
+	testWidgets('changes language from the App Bar menu', (tester) async {
+		await tester.pumpWidget(const WasteUpApp());
+
+		await tester.tap(find.byIcon(Icons.language));
+		await tester.pumpAndSettle();
+		await tester.tap(find.text('English'));
+		await tester.pumpAndSettle();
+
+		expect(find.text('Find work that\nworks for you.'), findsOneWidget);
+	});
 }
