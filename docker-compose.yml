@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Optional: Web-based GUI database management tool
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_ui
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: waste_up_user
+      POSTGRES_PASSWORD: waste_up_password
+      POSTGRES_DB: waste_up_db
+      PGADMIN_DEFAULT_EMAIL: me@catoyeung.com
+      PGADMIN_DEFAULT_PASSWORD: Aa123456
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+# 2. .NET Web API Service
+  webapi:
+    build:
+      context: ./backend/WasteUp.WebAPI/           # Path to folder containing your Dockerfile
+      dockerfile: Dockerfile
+    container_name: waste_up_dotnet_webapi
+    restart: unless-stopped
+    ports:
+      - "5000:8080"            # Map local port 5000 to container port 8080
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # Use container name 'postgres' as the Host
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=waste_up_db;Username=waste_up_user;Password=waste_up_password;
+    depends_on:
+      postgres:
+        condition: service_healthy # Wait until Postgres is completely ready before starting API
+
+volumes:
+  postgres_data:

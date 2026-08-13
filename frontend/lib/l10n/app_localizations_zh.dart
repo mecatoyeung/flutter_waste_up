@@ -15,6 +15,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get notifications => '通知';
 
   @override
+  String get account => '帳戶';
+
+  @override
+  String get signIn => '登入';
+
+  @override
+  String get signUp => '註冊';
+
+  @override
+  String get signOut => '登出';
+
+  @override
   String get allCaughtUp => '您已掌握所有最新消息。';
 
   @override
@@ -169,6 +181,18 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
   String get notifications => '通知';
 
   @override
+  String get account => '账户';
+
+  @override
+  String get signIn => '登录';
+
+  @override
+  String get signUp => '注册';
+
+  @override
+  String get signOut => '退出登录';
+
+  @override
   String get allCaughtUp => '您已了解所有最新消息。';
 
   @override
@@ -321,6 +345,18 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get notifications => '通知';
+
+  @override
+  String get account => '帳戶';
+
+  @override
+  String get signIn => '登入';
+
+  @override
+  String get signUp => '註冊';
+
+  @override
+  String get signOut => '登出';
 
   @override
   String get allCaughtUp => '您已掌握所有最新消息。';

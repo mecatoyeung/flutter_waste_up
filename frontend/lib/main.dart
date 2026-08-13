@@ -120,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
   int selectedNav = 0;
   bool showNearby = false;
+  bool isAuthenticated = false;
   final savedJobs = <String>{'communityGarden'};
 
   @override
@@ -168,6 +169,33 @@ class _HomeScreenState extends State<HomeScreen> {
             tooltip: l10n.notifications,
             onPressed: () => message(l10n.allCaughtUp),
             icon: const Badge(smallSize: 8, child: Icon(Icons.notifications_none)),
+          ),
+          PopupMenuButton<_AccountAction>(
+            tooltip: l10n.account,
+            icon: const Icon(Icons.account_circle_outlined),
+            onSelected: handleAccountAction,
+            itemBuilder: (context) => isAuthenticated
+                ? [
+                    PopupMenuItem(
+                      value: _AccountAction.profile,
+                      child: ListTile(leading: const Icon(Icons.person_outline), title: Text(l10n.profile)),
+                    ),
+                    const PopupMenuDivider(),
+                    PopupMenuItem(
+                      value: _AccountAction.signOut,
+                      child: ListTile(leading: const Icon(Icons.logout), title: Text(l10n.signOut)),
+                    ),
+                  ]
+                : [
+                    PopupMenuItem(
+                      value: _AccountAction.signIn,
+                      child: ListTile(leading: const Icon(Icons.login), title: Text(l10n.signIn)),
+                    ),
+                    PopupMenuItem(
+                      value: _AccountAction.signUp,
+                      child: ListTile(leading: const Icon(Icons.person_add_outlined), title: Text(l10n.signUp)),
+                    ),
+                  ],
           ),
           const SizedBox(width: 12),
         ],
@@ -270,6 +298,18 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       );
 
+  void handleAccountAction(_AccountAction action) {
+    switch (action) {
+      case _AccountAction.signIn:
+      case _AccountAction.signUp:
+        setState(() => isAuthenticated = true);
+      case _AccountAction.profile:
+        setState(() => selectedNav = 3);
+      case _AccountAction.signOut:
+        setState(() => isAuthenticated = false);
+    }
+  }
+
   void message(String text) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
 
   void showJobDetails(Job job) {
@@ -302,6 +342,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+enum _AccountAction { signIn, signUp, profile, signOut }
 
 class Job {
   const Job(this.id, this.title, this.organisation, this.location, this.type, this.pay, this.icon, this.color);

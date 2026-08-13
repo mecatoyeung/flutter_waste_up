@@ -15,6 +15,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifications => 'Notifications';
 
   @override
+  String get account => 'Account';
+
+  @override
+  String get signIn => 'Sign in';
+
+  @override
+  String get signUp => 'Sign up';
+
+  @override
+  String get signOut => 'Sign out';
+
+  @override
   String get allCaughtUp => 'You are all caught up.';
 
   @override

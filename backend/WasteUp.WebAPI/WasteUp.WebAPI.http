@@ -1,0 +1,6 @@
+@WasteUp.WebAPI_HostAddress = http://localhost:5111
+
+GET {{WasteUp.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
