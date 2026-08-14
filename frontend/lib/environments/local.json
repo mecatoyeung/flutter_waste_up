@@ -1,4 +1,6 @@
 {
   "ENVIRONMENT": "local",
-  "DebugShowCheckedModeBanner": true
+  "DebugShowCheckedModeBanner": true,
+  "PwaInstallationTitle": "Waste Up",
+  "PwaInstallationDescription": "Use your spare time, find a good job."
 }

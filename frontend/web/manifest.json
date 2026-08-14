@@ -1,11 +1,11 @@
 {
-    "name": "waste_up",
-    "short_name": "waste_up",
+    "name": "Waste Up",
+    "short_name": "Waste Up",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Find meaningful work that supports your community.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

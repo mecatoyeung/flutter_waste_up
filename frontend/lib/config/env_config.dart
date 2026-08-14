@@ -9,6 +9,16 @@ class EnvConfig {
     defaultValue: true,
   );
 
+  static const String pwaInstallationTitle = String.fromEnvironment(
+    'PwaInstallationTitle',
+    defaultValue: 'Waste Up',
+  );
+
+  static const String pwaInstallationDescription = String.fromEnvironment(
+    'PwaInstallationDescription',
+    defaultValue: 'Find meaningful work that supports your community.',
+  );
+
   static bool get isProduction => environment == 'production';
   static bool get isStaging => environment == 'staging';
   static bool get isLocal => environment == 'local';

@@ -3,13 +3,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:waste_up/l10n/app_localizations.dart';
 
 import 'package:waste_up/config/env_config.dart';
+import 'package:waste_up/config/pwa_manifest.dart';
 
 const yellow = Color(0xFFF6C945);
 const ink = Color(0xFF172019);
 const muted = Color(0xFF69726B);
 const page = Color(0xFFF7F7F2);
 
-void main() => runApp(const WasteUpApp());
+void main() {
+  configurePwaManifest();
+  runApp(const WasteUpApp());
+}
 
 class WasteUpApp extends StatefulWidget {
   const WasteUpApp({super.key, this.locale});

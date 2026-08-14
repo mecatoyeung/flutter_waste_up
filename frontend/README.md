@@ -17,3 +17,11 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 flutter run -d chrome --dart-define-from-file=lib/environments/local.json
+
+## PWA installation metadata
+
+Set `PwaInstallationTitle` and `PwaInstallationDescription` in an environment
+JSON file. They update the PWA manifest's installation name and description at
+startup. For example, run the staging configuration with:
+
+flutter run -d chrome --dart-define-from-file=lib/environments/staging.json
