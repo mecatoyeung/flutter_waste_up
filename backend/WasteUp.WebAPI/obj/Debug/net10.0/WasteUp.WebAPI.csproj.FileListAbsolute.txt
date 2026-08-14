@@ -352,3 +352,8 @@ C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Validation\tr\Microsoft.CodeAnalysi
 C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Validation\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Validation\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
 C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Validation\runtimes\win\lib\net9.0\System.Windows.Extensions.dll
+C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Debug\net10.0\Google.Apis.dll
+C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Debug\net10.0\Google.Apis.Auth.dll
+C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Debug\net10.0\Google.Apis.Core.dll
+C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Debug\net10.0\System.Management.dll
+C:\repos\waste_up\backend\WasteUp.WebAPI\bin\Debug\net10.0\runtimes\win\lib\net7.0\System.Management.dll

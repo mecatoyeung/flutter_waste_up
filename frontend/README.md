@@ -24,4 +24,6 @@ Set `PwaInstallationTitle` and `PwaInstallationDescription` in an environment
 JSON file. They update the PWA manifest's installation name and description at
 startup. For example, run the staging configuration with:
 
-flutter run -d chrome --dart-define-from-file=lib/environments/staging.json
+flutter run -d chrome --dart-define-from-file=lib/environments/local.json --web-port=7357
+
+http://localhost:7357/account/google/config

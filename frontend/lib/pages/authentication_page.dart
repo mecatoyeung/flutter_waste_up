@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:waste_up/l10n/app_localizations.dart';
 import 'package:waste_up/services/auth_service.dart';
 import 'package:waste_up/theme/app_colors.dart';
+import 'package:waste_up/widgets/google_web_sign_in_button.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({super.key, required this.isSignUp});
@@ -73,6 +75,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         await AuthService.instance.signIn(
           username: username,
           password: password,
+          rememberMe: rememberMe,
         );
         if (!mounted) return;
         Navigator.of(context).pop(true);
@@ -86,6 +89,30 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     } finally {
       if (mounted) setState(() => isSubmitting = false);
     }
+  }
+
+  Future<void> signInWithGoogle() async {
+    if (isSubmitting) return;
+
+    setState(() => isSubmitting = true);
+    try {
+      await AuthService.instance.signInWithGoogle();
+      if (!mounted) return;
+      Navigator.of(context).pop(true);
+    } on AuthException catch (error) {
+      if (mounted) showPreviewMessage(error.message);
+    } on Exception {
+      if (mounted) {
+        showPreviewMessage('Unable to reach the server. Please try again.');
+      }
+    } finally {
+      if (mounted) setState(() => isSubmitting = false);
+    }
+  }
+
+  Future<void> completeWebGoogleSignIn() async {
+    if (!mounted) return;
+    Navigator.of(context).pop(true);
   }
 
   @override
@@ -284,32 +311,34 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     ],
                   ),
                   const SizedBox(height: 18),
-                  SizedBox(
-                    height: 52,
-                    child: OutlinedButton.icon(
-                      onPressed: () =>
-                          showPreviewMessage(l10n.authenticationPreview),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: ink,
-                        side: const BorderSide(color: Color(0xFFDDE0DA)),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
+                  if (kIsWeb)
+                    GoogleWebSignInButton(onSignedIn: completeWebGoogleSignIn)
+                  else
+                    SizedBox(
+                      height: 52,
+                      child: OutlinedButton.icon(
+                        onPressed: isSubmitting ? null : signInWithGoogle,
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: ink,
+                          side: const BorderSide(color: Color(0xFFDDE0DA)),
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
                         ),
-                      ),
-                      icon: const Text(
-                        'G',
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF4285F4),
+                        icon: const Text(
+                          'G',
+                          style: TextStyle(
+                            fontSize: 19,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF4285F4),
+                          ),
                         ),
-                      ),
-                      label: Text(
-                        l10n.continueWithGoogle,
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                        label: Text(
+                          l10n.continueWithGoogle,
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
-                  ),
                   const SizedBox(height: 26),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
