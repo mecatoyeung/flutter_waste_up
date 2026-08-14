@@ -1,5 +1,7 @@
 import 'dart:convert';
-import 'dart:html';
+import 'dart:js_interop';
+
+import 'package:web/web.dart' as web;
 
 import 'env_config.dart';
 
@@ -32,17 +34,18 @@ void configurePwaManifest() {
     ],
   };
 
-  final manifestLink = document.querySelector('link[rel="manifest"]');
-  if (manifestLink is LinkElement) {
-    manifestLink.href = 'data:application/manifest+json,${Uri.encodeComponent(jsonEncode(manifest))}';
+  final manifestLink = web.document.querySelector('link[rel="manifest"]');
+  if (manifestLink != null && manifestLink.isA<web.HTMLLinkElement>()) {
+    (manifestLink as web.HTMLLinkElement).href =
+        'data:application/manifest+json,${Uri.encodeComponent(jsonEncode(manifest))}';
   }
 
-  document.title = EnvConfig.pwaInstallationTitle;
-  document.querySelector('meta[name="description"]')?.setAttribute(
+  web.document.title = EnvConfig.pwaInstallationTitle;
+  web.document.querySelector('meta[name="description"]')?.setAttribute(
         'content',
         EnvConfig.pwaInstallationDescription,
       );
-  document.querySelector('meta[name="apple-mobile-web-app-title"]')?.setAttribute(
+  web.document.querySelector('meta[name="apple-mobile-web-app-title"]')?.setAttribute(
         'content',
         EnvConfig.pwaInstallationTitle,
       );
