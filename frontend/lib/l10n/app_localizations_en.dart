@@ -24,6 +24,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUp => 'Sign up';
 
   @override
+  String get welcomeBack => 'Welcome back';
+
+  @override
+  String get signInSubtitle =>
+      'Sign in to continue finding work that works for you.';
+
+  @override
+  String get createAccount => 'Create your account';
+
+  @override
+  String get signUpSubtitle => 'Join Waste Up and discover work with purpose.';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get usernameHint => 'Enter your username';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get confirmPassword => 'Confirm password';
+
+  @override
+  String get showPassword => 'Show password';
+
+  @override
+  String get hidePassword => 'Hide password';
+
+  @override
+  String get rememberMe => 'Remember me';
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get orContinueWith => 'or continue with';
+
+  @override
+  String get continueWithGoogle => 'Continue with Google';
+
+  @override
+  String get newToWasteUp => 'New to Waste Up?';
+
+  @override
+  String get alreadyHaveAccount => 'Already have an account?';
+
+  @override
+  String get featureComingSoon => 'This feature will be available soon.';
+
+  @override
+  String get authenticationPreview => 'Authentication is not connected yet.';
+
+  @override
   String get signOut => 'Sign out';
 
   @override

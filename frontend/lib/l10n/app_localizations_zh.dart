@@ -24,6 +24,60 @@ class AppLocalizationsZh extends AppLocalizations {
   String get signUp => '註冊';
 
   @override
+  String get welcomeBack => '歡迎回來';
+
+  @override
+  String get signInSubtitle => '登入以繼續尋找適合您的工作。';
+
+  @override
+  String get createAccount => '建立帳戶';
+
+  @override
+  String get signUpSubtitle => '加入 Waste Up，探索有意義的工作。';
+
+  @override
+  String get username => '使用者名稱';
+
+  @override
+  String get usernameHint => '輸入您的使用者名稱';
+
+  @override
+  String get password => '密碼';
+
+  @override
+  String get confirmPassword => '確認密碼';
+
+  @override
+  String get showPassword => '顯示密碼';
+
+  @override
+  String get hidePassword => '隱藏密碼';
+
+  @override
+  String get rememberMe => '記住我';
+
+  @override
+  String get forgotPassword => '忘記密碼？';
+
+  @override
+  String get orContinueWith => '或繼續使用';
+
+  @override
+  String get continueWithGoogle => '使用 Google 繼續';
+
+  @override
+  String get newToWasteUp => '剛來到 Waste Up？';
+
+  @override
+  String get alreadyHaveAccount => '已有帳戶？';
+
+  @override
+  String get featureComingSoon => '此功能即將推出。';
+
+  @override
+  String get authenticationPreview => '驗證功能尚未連接。';
+
+  @override
   String get signOut => '登出';
 
   @override
@@ -190,6 +244,60 @@ class AppLocalizationsZhCn extends AppLocalizationsZh {
   String get signUp => '注册';
 
   @override
+  String get welcomeBack => '欢迎回来';
+
+  @override
+  String get signInSubtitle => '登录以继续寻找适合您的工作。';
+
+  @override
+  String get createAccount => '创建账户';
+
+  @override
+  String get signUpSubtitle => '加入 Waste Up，探索有意义的工作。';
+
+  @override
+  String get username => '用户名';
+
+  @override
+  String get usernameHint => '输入您的用户名';
+
+  @override
+  String get password => '密码';
+
+  @override
+  String get confirmPassword => '确认密码';
+
+  @override
+  String get showPassword => '显示密码';
+
+  @override
+  String get hidePassword => '隐藏密码';
+
+  @override
+  String get rememberMe => '记住我';
+
+  @override
+  String get forgotPassword => '忘记密码？';
+
+  @override
+  String get orContinueWith => '或继续使用';
+
+  @override
+  String get continueWithGoogle => '使用 Google 继续';
+
+  @override
+  String get newToWasteUp => '刚来到 Waste Up？';
+
+  @override
+  String get alreadyHaveAccount => '已有账户？';
+
+  @override
+  String get featureComingSoon => '此功能即将推出。';
+
+  @override
+  String get authenticationPreview => '验证功能尚未连接。';
+
+  @override
   String get signOut => '退出登录';
 
   @override
@@ -354,6 +462,60 @@ class AppLocalizationsZhTw extends AppLocalizationsZh {
 
   @override
   String get signUp => '註冊';
+
+  @override
+  String get welcomeBack => '歡迎回來';
+
+  @override
+  String get signInSubtitle => '登入以繼續尋找適合您的工作。';
+
+  @override
+  String get createAccount => '建立帳戶';
+
+  @override
+  String get signUpSubtitle => '加入 Waste Up，探索有意義的工作。';
+
+  @override
+  String get username => '使用者名稱';
+
+  @override
+  String get usernameHint => '輸入您的使用者名稱';
+
+  @override
+  String get password => '密碼';
+
+  @override
+  String get confirmPassword => '確認密碼';
+
+  @override
+  String get showPassword => '顯示密碼';
+
+  @override
+  String get hidePassword => '隱藏密碼';
+
+  @override
+  String get rememberMe => '記住我';
+
+  @override
+  String get forgotPassword => '忘記密碼？';
+
+  @override
+  String get orContinueWith => '或繼續使用';
+
+  @override
+  String get continueWithGoogle => '使用 Google 繼續';
+
+  @override
+  String get newToWasteUp => '剛來到 Waste Up？';
+
+  @override
+  String get alreadyHaveAccount => '已有帳戶？';
+
+  @override
+  String get featureComingSoon => '此功能即將推出。';
+
+  @override
+  String get authenticationPreview => '驗證功能尚未連接。';
 
   @override
   String get signOut => '登出';
