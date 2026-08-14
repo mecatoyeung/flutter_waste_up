@@ -135,55 +135,6 @@ jobs:
           if-no-files-found: error
           path: frontend/waste-up-web.tar.gz
 
-      - name: Build Linux bundle
-        if: matrix.target == 'linux'
-        run: flutter build linux --release
-
-      - name: Package Linux bundle
-        if: matrix.target == 'linux'
-        run: tar -czf waste-up-linux.tar.gz -C build/linux/x64/release/bundle .
-
-      - name: Publish Linux artifact
-        if: matrix.target == 'linux'
-        uses: actions/upload-artifact@v5
-        with:
-          name: waste-up-linux
-          if-no-files-found: error
-          path: frontend/waste-up-linux.tar.gz
-
-      - name: Build Windows bundle
-        if: matrix.target == 'windows'
-        run: flutter build windows --release
-
-      - name: Package Windows bundle
-        if: matrix.target == 'windows'
-        shell: pwsh
-        run: Compress-Archive -Path build/windows/x64/runner/Release/* -DestinationPath waste-up-windows.zip
-
-      - name: Publish Windows artifact
-        if: matrix.target == 'windows'
-        uses: actions/upload-artifact@v5
-        with:
-          name: waste-up-windows
-          if-no-files-found: error
-          path: frontend/waste-up-windows.zip
-
-      - name: Build macOS application
-        if: matrix.target == 'macos'
-        run: flutter build macos --release
-
-      - name: Package macOS application
-        if: matrix.target == 'macos'
-        run: ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/waste_up.app waste-up-macos.zip
-
-      - name: Publish macOS artifact
-        if: matrix.target == 'macos'
-        uses: actions/upload-artifact@v5
-        with:
-          name: waste-up-macos
-          if-no-files-found: error
-          path: frontend/waste-up-macos.zip
-
   release:
     name: Publish GitHub release
     needs: build

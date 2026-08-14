@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:waste_up/l10n/app_localizations.dart';
 
+import 'package:waste_up/config/env_config.dart';
+
 const yellow = Color(0xFFF6C945);
 const ink = Color(0xFF172019);
 const muted = Color(0xFF69726B);
@@ -58,7 +60,7 @@ class _WasteUpAppState extends State<WasteUpApp> {
         }
         return const Locale('zh', 'TW');
       },
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: EnvConfig.debugShowCheckedModeBanner,
       theme: ThemeData(
         useMaterial3: true,
         scaffoldBackgroundColor: page,
@@ -149,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 48,
-        titleSpacing: 24,
+        titleSpacing: 20,
         title: Row(children: [
           Text(l10n.appTitle, style: const TextStyle(fontWeight: FontWeight.w800)),
         ]),
