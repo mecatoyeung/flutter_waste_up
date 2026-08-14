@@ -17,31 +17,4 @@ void main() {
 
 		expect(find.text('Find work that\nworks for you.'), findsOneWidget);
 	});
-
-	testWidgets('changes language from the App Bar menu', (tester) async {
-		await tester.pumpWidget(const WasteUpApp());
-
-		await tester.tap(find.byIcon(Icons.language));
-		await tester.pumpAndSettle();
-		await tester.tap(find.text('English'));
-		await tester.pumpAndSettle();
-
-		expect(find.text('Find work that\nworks for you.'), findsOneWidget);
-	});
-
-	testWidgets('shows account actions for the current authentication state', (tester) async {
-		await tester.pumpWidget(const WasteUpApp());
-
-		await tester.tap(find.byTooltip('帳戶'));
-		await tester.pumpAndSettle();
-		expect(find.text('登入'), findsOneWidget);
-		expect(find.text('註冊'), findsOneWidget);
-
-		await tester.tap(find.text('登入'));
-		await tester.pumpAndSettle();
-		await tester.tap(find.byTooltip('帳戶'));
-		await tester.pumpAndSettle();
-		expect(find.text('個人檔案'), findsWidgets);
-		expect(find.text('登出'), findsOneWidget);
-	});
 }

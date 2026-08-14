@@ -1,6 +1,6 @@
 {
   "ENVIRONMENT": "staging",
-  "DebugShowCheckedModeBanner": true,
+  "DebugShowCheckedModeBanner": false,
   "PwaInstallationTitle": "Waste Up",
   "PwaInstallationDescription": "Use your spare time, find a good job."
 }
