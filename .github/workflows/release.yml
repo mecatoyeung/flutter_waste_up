@@ -63,12 +63,6 @@ jobs:
             os: ubuntu-latest
           - target: web
             os: ubuntu-latest
-          - target: linux
-            os: ubuntu-latest
-          - target: windows
-            os: windows-latest
-          - target: macos
-            os: macos-latest
     defaults:
       run:
         working-directory: frontend
@@ -93,8 +87,8 @@ jobs:
       - name: Build Android APK and App Bundle
         if: matrix.target == 'android'
         run: |
-          flutter build apk --release
-          flutter build appbundle --release
+          flutter build apk --release --dart-define-from-file=lib/environments/local.json
+          flutter build appbundle --release --dart-define-from-file=lib/environments/local.json
 
       - name: Publish Android artifacts
         if: matrix.target == 'android'
@@ -115,7 +109,7 @@ jobs:
         if: matrix.target == 'web'
         run: |
           BASE_HREF="${{ steps.pages.outputs.base_path || '/' }}"
-          flutter build web --release --base-href "${BASE_HREF%/}/"
+          flutter build web --release --dart-define-from-file=lib/environments/local.json --base-href "${BASE_HREF%/}/"
 
       - name: Upload GitHub Pages artifact
         if: matrix.target == 'web' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch')
