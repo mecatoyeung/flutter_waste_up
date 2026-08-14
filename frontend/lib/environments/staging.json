@@ -1,6 +1,7 @@
 {
   "ENVIRONMENT": "staging",
   "DebugShowCheckedModeBanner": true,
+  "ApiBaseUrl": "https://localhost:7029",
   "PwaInstallationTitle": "Waste Up",
   "PwaInstallationDescription": "Use your spare time, find a good job."
 }

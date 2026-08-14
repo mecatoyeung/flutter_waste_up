@@ -4,15 +4,15 @@ services:
     container_name: postgres_db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydb
+      POSTGRES_USER: waste_up_user
+      POSTGRES_PASSWORD: waste_up_password
+      POSTGRES_DB: waste_up_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]
+      test: ["CMD-SHELL", "pg_isready -U waste_up_user -d waste_up_db"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,7 +46,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       # Use container name 'postgres' as the Host
-      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=waste_up_db;Username=waste_up_user;Password=waste_up_password;
+      - ConnectionStrings__Postgres=Host=postgres;Port=5432;Database=waste_up_db;Username=waste_up_user;Password=waste_up_password;
     depends_on:
       postgres:
         condition: service_healthy # Wait until Postgres is completely ready before starting API

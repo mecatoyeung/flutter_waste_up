@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug WasteUp API (HTTP)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "Build WasteUp API",
+      "program": "${workspaceFolder}/backend/WasteUp.WebAPI/bin/Debug/net10.0/WasteUp.WebAPI.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/backend/WasteUp.WebAPI",
+      "stopAtEntry": false,
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://localhost:5111"
+      },
+      "console": "integratedTerminal"
+    }
+  ]
+}

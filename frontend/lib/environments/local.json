@@ -1,6 +1,7 @@
 {
   "ENVIRONMENT": "local",
   "DebugShowCheckedModeBanner": true,
+  "ApiBaseUrl": "http://localhost:5111",
   "PwaInstallationTitle": "Waste Up",
   "PwaInstallationDescription": "Use your spare time, find a good job."
 }

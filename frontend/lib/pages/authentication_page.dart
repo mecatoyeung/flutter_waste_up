@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:waste_up/l10n/app_localizations.dart';
+import 'package:waste_up/services/auth_service.dart';
 import 'package:waste_up/theme/app_colors.dart';
 
 class AuthenticationPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
   bool rememberMe = false;
+  bool isSubmitting = false;
 
   @override
   void dispose() {
@@ -37,6 +39,53 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         builder: (_) => AuthenticationPage(isSignUp: !widget.isSignUp),
       ),
     );
+  }
+
+  Future<void> submit() async {
+    if (isSubmitting) return;
+
+    final username = usernameController.text.trim();
+    final password = passwordController.text;
+    final confirmPassword = confirmPasswordController.text;
+
+    if (username.isEmpty || password.isEmpty) {
+      showPreviewMessage('Username and password are required.');
+      return;
+    }
+
+    if (widget.isSignUp && password != confirmPassword) {
+      showPreviewMessage('Password and confirm password must match.');
+      return;
+    }
+
+    setState(() => isSubmitting = true);
+    try {
+      if (widget.isSignUp) {
+        await AuthService.instance.signUp(
+          username: username,
+          password: password,
+          confirmPassword: confirmPassword,
+        );
+        if (!mounted) return;
+        showPreviewMessage('Account created. Please sign in.');
+        switchMode();
+      } else {
+        await AuthService.instance.signIn(
+          username: username,
+          password: password,
+        );
+        if (!mounted) return;
+        Navigator.of(context).pop(true);
+      }
+    } on AuthException catch (error) {
+      if (mounted) showPreviewMessage(error.message);
+    } on Exception {
+      if (mounted) {
+        showPreviewMessage('Unable to reach the server. Please try again.');
+      }
+    } finally {
+      if (mounted) setState(() => isSubmitting = false);
+    }
   }
 
   @override
@@ -124,6 +173,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     autofillHints: isSignUp
                         ? const [AutofillHints.newPassword]
                         : const [AutofillHints.password],
+                    onSubmitted: isSignUp ? null : (_) => submit(),
                     decoration: InputDecoration(
                       labelText: l10n.password,
                       prefixIcon: const Icon(Icons.lock_outline),
@@ -148,6 +198,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                       obscureText: !confirmPasswordVisible,
                       textInputAction: TextInputAction.done,
                       autofillHints: const [AutofillHints.newPassword],
+                      onSubmitted: (_) => submit(),
                       decoration: InputDecoration(
                         labelText: l10n.confirmPassword,
                         prefixIcon: const Icon(Icons.lock_outline),
@@ -196,8 +247,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   SizedBox(
                     height: 52,
                     child: FilledButton(
-                      onPressed: () =>
-                          showPreviewMessage(l10n.authenticationPreview),
+                      onPressed: isSubmitting ? null : submit,
                       style: FilledButton.styleFrom(
                         backgroundColor: yellow,
                         foregroundColor: ink,
@@ -205,10 +255,18 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           borderRadius: BorderRadius.zero,
                         ),
                       ),
-                      child: Text(
-                        actionLabel,
-                        style: const TextStyle(fontWeight: FontWeight.w800),
-                      ),
+                      child: isSubmitting
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : Text(
+                              actionLabel,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
                     ),
                   ),
                   const SizedBox(height: 24),

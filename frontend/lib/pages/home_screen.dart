@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:waste_up/l10n/app_localizations.dart';
 import 'package:waste_up/pages/sign_in_page.dart';
 import 'package:waste_up/pages/sign_up_page.dart';
+import 'package:waste_up/services/auth_service.dart';
 import 'package:waste_up/theme/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -311,20 +312,27 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       );
 
-  void handleAccountAction(_AccountAction action) {
+  Future<void> handleAccountAction(_AccountAction action) async {
     switch (action) {
       case _AccountAction.signIn:
-        Navigator.of(
+        final signedIn = await Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (_) => const SignInPage()));
+        ).push<bool>(MaterialPageRoute(builder: (_) => const SignInPage()));
+        if (signedIn == true && mounted) setState(() => isAuthenticated = true);
+        return;
       case _AccountAction.signUp:
-        Navigator.of(
+        final signedIn = await Navigator.of(
           context,
-        ).push(MaterialPageRoute(builder: (_) => const SignUpPage()));
+        ).push<bool>(MaterialPageRoute(builder: (_) => const SignUpPage()));
+        if (signedIn == true && mounted) setState(() => isAuthenticated = true);
+        return;
       case _AccountAction.profile:
         setState(() => selectedNav = 3);
+        return;
       case _AccountAction.signOut:
+        AuthService.instance.signOut();
         setState(() => isAuthenticated = false);
+        return;
     }
   }
 

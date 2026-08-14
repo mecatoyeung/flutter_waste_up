@@ -19,6 +19,11 @@ class EnvConfig {
     defaultValue: 'Find meaningful work that supports your community.',
   );
 
+  static const String apiBaseUrl = String.fromEnvironment(
+    'ApiBaseUrl',
+    defaultValue: 'https://localhost:7029',
+  );
+
   static bool get isProduction => environment == 'production';
   static bool get isStaging => environment == 'staging';
   static bool get isLocal => environment == 'local';
