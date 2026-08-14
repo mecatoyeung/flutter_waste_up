@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
         toolbarHeight: 48,
         titleSpacing: 20,
         title: Row(children: [
-          Text(l10n.appTitle + " (" + EnvConfig.ENVIRONMENT + ")", style: const TextStyle(fontWeight: FontWeight.w800)),
+          Text('${l10n.appTitle} (${EnvConfig.environment})', style: const TextStyle(fontWeight: FontWeight.w800)),
         ]),
         actions: [
           PopupMenuButton<Locale>(

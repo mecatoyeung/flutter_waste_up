@@ -59,8 +59,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - target: android
-            os: ubuntu-latest
+          #- target: android
+          #  os: ubuntu-latest
           - target: web
             os: ubuntu-latest
     defaults:
@@ -84,21 +84,21 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Android APK and App Bundle
-        if: matrix.target == 'android'
-        run: |
-          flutter build apk --release --dart-define-from-file=lib/environments/production.json
-          flutter build appbundle --release --dart-define-from-file=lib/environments/production.json
+      #- name: Build Android APK and App Bundle
+      #  if: matrix.target == 'android'
+      #  run: |
+      #    flutter build apk --release --dart-define-from-file=lib/environments/production.json
+      #    flutter build appbundle --release --dart-define-from-file=lib/environments/production.json
 
-      - name: Publish Android artifacts
-        if: matrix.target == 'android'
-        uses: actions/upload-artifact@v5
-        with:
-          name: waste-up-android
-          if-no-files-found: error
-          path: |
-            frontend/build/app/outputs/flutter-apk/app-release.apk
-            frontend/build/app/outputs/bundle/release/app-release.aab
+      #- name: Publish Android artifacts
+      #  if: matrix.target == 'android'
+      #  uses: actions/upload-artifact@v5
+      #  with:
+      #    name: waste-up-android
+      #    if-no-files-found: error
+      #    path: |
+      #      frontend/build/app/outputs/flutter-apk/app-release.apk
+      #      frontend/build/app/outputs/bundle/release/app-release.aab
 
       - name: Configure GitHub Pages
         id: pages
