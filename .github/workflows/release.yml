@@ -87,8 +87,8 @@ jobs:
       - name: Build Android APK and App Bundle
         if: matrix.target == 'android'
         run: |
-          flutter build apk --release --dart-define-from-file=lib/environments/local.json
-          flutter build appbundle --release --dart-define-from-file=lib/environments/local.json
+          flutter build apk --release --dart-define-from-file=lib/environments/production.json
+          flutter build appbundle --release --dart-define-from-file=lib/environments/production.json
 
       - name: Publish Android artifacts
         if: matrix.target == 'android'
@@ -109,7 +109,7 @@ jobs:
         if: matrix.target == 'web'
         run: |
           BASE_HREF="${{ steps.pages.outputs.base_path || '/' }}"
-          flutter build web --release --dart-define-from-file=lib/environments/local.json --base-href "${BASE_HREF%/}/"
+          flutter build web --release --dart-define-from-file=lib/environments/production.json --base-href "${BASE_HREF%/}/"
 
       - name: Upload GitHub Pages artifact
         if: matrix.target == 'web' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_dispatch')
